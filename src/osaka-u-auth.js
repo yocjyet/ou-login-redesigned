@@ -2,7 +2,7 @@
 // @name            Osaka University Login Redesigned
 // @name:ja         阪大ログイン画面再設計版
 // @namespace       https://yocjyet.dev/
-// @version         2.1
+// @version         2.2
 // @description     Improve login UI of the authentication system of Osaka University to allow password autocompletion and redesigned on the theme of Sci-Fi to fit modern style.
 // @description:ja  阪大のログイン画面をSF風に再設計し、パスワード管理ソフトの自動記入不能の問題を修正した。
 // @author          Yo Cjyet
@@ -67,6 +67,8 @@
   FORMS = {
     ログイン: 'login-form',
     MFA認証コード入力: 'otp-form',
+    Login: 'login-form',
+    'Enter MFA code': 'otp-form',
   };
 
   const errorH1 = document.querySelector('h1.errorh1');
