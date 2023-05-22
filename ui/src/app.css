@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap');
+
+:root {
+  --color-background: #16163e;
+  --color-primary: #2b2b7b;
+  --color-primary-light: #382c83;
+  --color-primary-lighter: #257c8e;
+  --color-secondary: #1ba493;
+  --color-highlight: hwb(164 7% 20%);
+  --color-accent: #07f49e;
+  --color-desaturated: #506d6a;
+
+  font-family: 'Kiwi Maru', sans-serif;
+  font-size: 18px;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --drop-shadow: drop-shadow(0 0 3px rgba(17, 204, 153, 0.5));
+  --brightness: brightness(1.12);
+  --box-shadow-focus: 0 0 1em rgba(0, 0, 0, 0.25), 0 0 3em rgba(17, 204, 153, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: linear-gradient(-45deg, var(--color-background) 0%, var(--color-primary) 100%);
+}
+
+body {
+  color: var(--color-highlight);
+  margin: 0;
+  display: grid;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body.error {
+  filter: hue-rotate(195deg) saturate(1.5) brightness(0.8) contrast(2);
+  background: linear-gradient(-45deg, rgba(62, 5, 10, 1) 0%, rgba(113, 5, 29, 1) 100%);
+}
+
+body.error button {
+  background: var(--color-secondary);
+  color: black;
+  filter: drop-shadow(0 0 3px rgba(17, 204, 153, 0.5));
+}
+
+body.error main {
+  border: 2px solid var(--color-secondary);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+  margin: 0 auto;
+  max-width: 25rem;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.18);
+  padding: 1.8em 3.1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.25), 0 0 5em rgba(17, 204, 153, 0.1), inset 0 0 3em rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 0.5em rgba(17, 204, 153, 0.2);
+}
+
+svg,
+button,
+input {
+  filter: var(--drop-shadow);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.2em 0;
+}
+.logo {
+  width: 5rem;
+}
+
+h2#error-title {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0;
+}
+
+p#error-text {
+  font-size: 0.8em;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+button,
+input {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+button {
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  color: white;
+  border: none;
+  border-radius: 0.25em;
+  padding: 0.8em 0;
+  font-weight: bold;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+  filter: var(--drop-shadow) var(--brightness);
+  transform: scale(1.01);
+  box-shadow: var(--box-shadow-focus);
+}
+button:hover {
+  filter: var(--drop-shadow) var(--brightness);
+  transform: scale(1.01);
+}
+
+button.outline {
+  background: transparent;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+  transition: all 0.1s ease-in-out;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid var(--color-secondary);
+  padding: 0.85em 0.5em;
+  border-radius: 0.25em;
+  color: var(--color-secondary);
+  transition: all 0.1s ease-in-out;
+  width: 100%;
+}
+.input > svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+.input > input {
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.input:focus-within {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+.input > input:focus {
+  outline: none;
+}
+.input:hover {
+  border: 1px solid var(--color-highlight);
+  color: var(--color-highlight);
+}
+
+input::placeholder {
+  color: var(--color-desaturated);
+}
+
+.actions {
+  color: var(--color-primary-lighter);
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+  padding: 0.1em;
+}
+.actions > a,
+.actions > a:visited {
+  color: inherit;
+  transition: all 0.1s ease-in-out;
+}
+.actions > a:hover {
+  color: var(--color-highlight);
+}
+.actions > a:focus {
+  outline: none;
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+input[type='checkbox'] + label {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  --checked: none;
+  --unchecked: block;
+}
+
+input[type='checkbox']:checked + label {
+  --checked: block;
+  --unchecked: none;
+}
+
+input[type='checkbox'] + label > .custom-checkbox > .checked {
+  display: var(--checked);
+}
+input[type='checkbox'] + label > .custom-checkbox > .unchecked {
+  display: var(--unchecked);
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+}
+
+form {
+  display: none;
+}

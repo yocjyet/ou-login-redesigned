@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "start": "snowpack dev",
+        "build": "snowpack build"
+    },
+    "dependencies": {
+        "copy-ui-plugin": "link:copy-ui-plugin"
+    },
+    "devDependencies": {
+        "snowpack": "^3.8.8"
+    }
+}
