@@ -63,13 +63,15 @@
       form.style.display = form.name === formName ? 'contents' : 'none';
     }
   }
-  const h2 = document.querySelector('h2');
+  const h2 = document.querySelector('table h2');
   FORMS = {
     ログイン: 'login-form',
     MFA認証コード入力: 'otp-form',
     Login: 'login-form',
     'Enter MFA code': 'otp-form',
   };
+
+  console.log(h2);
 
   const errorH1 = document.querySelector('h1.errorh1');
   if (errorH1 !== null) {
@@ -108,6 +110,26 @@
   }
 
   if (h2 === null) {
+    console.log('No h2 found');
+
+    // Role selection page
+    const form = document.querySelector('form[name="cmdForm"]');
+
+    console.log('form', form);
+
+    if (form !== null) {
+      console.log('Role selection page');
+
+      // Move form under main
+      const main = document.querySelector('main');
+      main.appendChild(form);
+
+      form.display = 'block';
+
+      console.log('added form to main');
+      return;
+    }
+
     console.error('h2 not found');
   }
   if (!(h2.textContent.trim() in FORMS)) {
