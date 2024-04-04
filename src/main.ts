@@ -62,6 +62,7 @@
   const errorH1 = document.querySelector('h1.errorh1');
   if (errorH1 !== null && errorH1.textContent) {
     const errorTitle = errorH1.textContent.trim();
+    console.log(`Error page: ${errorTitle}`); // TODO: Show error title
 
     const errorTable = errorH1.nextElementSibling;
     if (errorTable === null) {
@@ -75,25 +76,25 @@
     document.querySelector('p#error-text')!.innerHTML = errorText;
 
     const returnButton: HTMLButtonElement = document.querySelector('button#error-return')!;
-    const errorReturn: HTMLAnchorElement = errorRows[1].querySelector('a')!;
-    if (errorReturn === null) {
-      console.error('Error return link not found');
+    const errorReturn: HTMLAnchorElement | null = errorTable.querySelector('a');
+
+    if (errorReturn) {
+      const returnHref = errorReturn.href.trim();
+      const match = /sentHref\('(.*)'\)/.exec(returnHref);
+      if (match && match.length > 1) {
+        const link = match[1];
+        returnButton.addEventListener('click', () => {
+          window.sentHref(link);
+        });
+      } else {
+        console.error('Error return link href is invalid');
+        returnButton.style.display = 'none';
+        return;
+      }
+    } else {
+      console.error('Return link not found');
       returnButton!.style.display = 'none';
-      return;
     }
-
-    const returnHref = errorRows[1].querySelector('a')!.href.trim();
-    const match = /sentHref\('(.*)'\)/.exec(returnHref);
-    if (match === null || match.length < 2) {
-      console.error('Error return link href is invalid');
-      returnButton.style.display = 'none';
-      return;
-    }
-    const link = match[1];
-
-    returnButton.addEventListener('click', () => {
-      window.sentHref(link);
-    });
 
     document.body.classList.add('error');
     displayForm('error');
@@ -115,7 +116,7 @@
       const main = document.querySelector('main')!;
       main.appendChild(form);
 
-      form.display = 'block';
+      form.style.display = 'block';
 
       console.log('added form to main');
       return;
