@@ -1,8 +1,3 @@
-// @ts-ignore isolatedModules
-console.log('hello world');
-
-
-
 (function () {
   ('use strict');
 
@@ -12,12 +7,12 @@ console.log('hello world');
 
   // Remove original styles
   const STYLES = document.querySelectorAll('link[rel="stylesheet"]');
-  for (const style of STYLES) {
+  for (const style of [...STYLES]) {
     style.remove();
   }
 
   // Add custom styles
-  function addStyle(css) {
+  function addStyle(css: string) {
     console.log('addStyle()', css.length);
     const style = document.createElement('style');
     style.innerHTML = css;
@@ -48,42 +43,47 @@ console.log('hello world');
   addStyle(CSS);
 
   // Select form to display based on h2
-  function displayForm(formName) {
+  function displayForm(formName: string) {
     for (let i = 0; i < document.forms.length; i++) {
       const form = document.forms[i];
       form.style.display = form.name === formName ? 'contents' : 'none';
     }
   }
   const h2 = document.querySelector('table h2');
-  FORMS = {
+  const FORMS = {
     ログイン: 'login-form',
     MFA認証コード入力: 'otp-form',
     Login: 'login-form',
     'Enter MFA code': 'otp-form',
-  };
+  } as const;
 
   console.log(h2);
 
   const errorH1 = document.querySelector('h1.errorh1');
-  if (errorH1 !== null) {
+  if (errorH1 !== null && errorH1.textContent) {
     const errorTitle = errorH1.textContent.trim();
 
     const errorTable = errorH1.nextElementSibling;
+    if (errorTable === null) {
+      console.error('Error table not found');
+      return;
+    }
     const errorRows = errorTable.querySelectorAll('tr');
     const errorText = errorRows[0].innerHTML.trim();
-    document.querySelector('h2#error-title').textContent = errorTitle;
-    document.querySelector('p#error-text').innerHTML = errorText;
 
-    const returnButton = document.querySelector('button#error-return');
-    const errorReturn = errorRows[1].querySelector('a');
+    document.querySelector('h2#error-title')!.textContent = errorTitle;
+    document.querySelector('p#error-text')!.innerHTML = errorText;
+
+    const returnButton: HTMLButtonElement = document.querySelector('button#error-return')!;
+    const errorReturn: HTMLAnchorElement = errorRows[1].querySelector('a')!;
     if (errorReturn === null) {
       console.error('Error return link not found');
-      returnButton.style.display = 'none';
+      returnButton!.style.display = 'none';
       return;
     }
 
-    const returnHref = errorRows[1].querySelector('a').href.trim();
-    const match = /sentHref\('(.*)'\)/.exec(errorReturn);
+    const returnHref = errorRows[1].querySelector('a')!.href.trim();
+    const match = /sentHref\('(.*)'\)/.exec(returnHref);
     if (match === null || match.length < 2) {
       console.error('Error return link href is invalid');
       returnButton.style.display = 'none';
@@ -91,8 +91,8 @@ console.log('hello world');
     }
     const link = match[1];
 
-    returnButton.addEventListener('click', (e) => {
-      sentHref(link);
+    returnButton.addEventListener('click', () => {
+      window.sentHref(link);
     });
 
     document.body.classList.add('error');
@@ -104,7 +104,7 @@ console.log('hello world');
     console.log('No h2 found');
 
     // Role selection page
-    const form = document.querySelector('form[name="cmdForm"]');
+    const form: HTMLFormElement | null = document.querySelector('form[name="cmdForm"]');
 
     console.log('form', form);
 
@@ -112,7 +112,7 @@ console.log('hello world');
       console.log('Role selection page');
 
       // Move form under main
-      const main = document.querySelector('main');
+      const main = document.querySelector('main')!;
       main.appendChild(form);
 
       form.display = 'block';
@@ -122,19 +122,31 @@ console.log('hello world');
     }
 
     console.error('h2 not found');
-  }
-  if (!(h2.textContent.trim() in FORMS)) {
-    console.error('unknown form: ' + h2.textContent.trim());
+
     return;
   }
-  displayForm(FORMS[h2.textContent.trim()]);
+
+  function isValidFormTitle(title: string): title is keyof typeof FORMS {
+    return title in FORMS;
+  }
+
+  const formTitle = h2.textContent!.trim();
+
+  if (!isValidFormTitle(formTitle)) {
+    console.error('unknown form: ' + h2.textContent!.trim());
+    return;
+  }
+
+  displayForm(FORMS[formTitle]);
 
   // Remove space from authcode
-  document.forms['otp-form'].addEventListener('submit', (e) => {
-    const authcode = document.getElementById('authcode');
-    authcode.value = authcode.value.replace(/ /g, '');
 
-    const remember = document.getElementById('remember');
+  const otpForm = document.querySelector('form[name="otp-form"]');
+  otpForm?.addEventListener('submit', () => {
+    const authcode = document.getElementById('authcode')! as HTMLInputElement;
+    authcode.value = authcode.value!.replace(/ /g, '');
+
+    const remember = document.getElementById('remember') as HTMLInputElement;
     if (remember.checked) {
       remember.value = '1';
     } else {
