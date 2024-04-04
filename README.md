@@ -1,5 +1,3 @@
-<div lang="ja">
-
 # 阪大ログインUI再設計版
 
 [![Greasy Fork](https://img.shields.io/greasyfork/v/466251-osaka-university-login-redesigned?style=flat)](https://greasyfork.org/ja/scripts/466251-osaka-university-login-redesigned)
@@ -30,5 +28,3 @@
 ## ライセンス
 
 MIT License &copy; 2023-2024 Cyjet Yo
-
-</div>
