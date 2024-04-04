@@ -5,7 +5,8 @@ import RemoveConsole from 'vite-plugin-remove-console';
 import { version } from './package.json';
 import fs from 'fs/promises';
 // https://vitejs.dev/config/
-export default defineConfig({
+
+export default defineConfig(async ({ mode }) => ({
   plugins: [
     replaceCodePlugin({
       replacements: [
@@ -19,7 +20,7 @@ export default defineConfig({
         },
       ],
     }),
-    RemoveConsole(),
+    ...(mode === 'production' ? [RemoveConsole()] : []),
     monkey({
       entry: 'src/main.ts',
       server: {
@@ -47,4 +48,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));
