@@ -1,12 +1,17 @@
 {
-    "scripts": {
-        "start": "snowpack dev",
-        "build": "snowpack build"
-    },
-    "dependencies": {
-        "copy-ui-plugin": "link:copy-ui-plugin"
-    },
-    "devDependencies": {
-        "snowpack": "^3.8.8"
-    }
+  "name": "osaka-auth",
+  "private": true,
+  "version": "0.2.5",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "watch": "vite build --watch --mode development --outDir=dist-dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-monkey": "^3.5.1",
+    "vite-plugin-replace": "^0.1.1",
+    "vite-plugin-remove-console": "^2.2.0"
+  }
 }

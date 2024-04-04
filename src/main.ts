@@ -1,16 +1,7 @@
-// ==UserScript==
-// @name            Osaka University Login Redesigned
-// @name:ja         阪大ログイン画面再設計版
-// @namespace       https://yocjyet.dev/
-// @version         2.4
-// @description     Improve login UI of the authentication system of Osaka University to allow password autocompletion and redesigned on the theme of Sci-Fi to fit modern style.
-// @description:ja  阪大のログイン画面をSF風に再設計し、パスワード管理ソフトの自動記入不能の問題を修正した。
-// @author          Yo Cjyet
-// @match           https://ou-idp.auth.osaka-u.ac.jp/idp/*
-// @icon            https://www.osaka-u.ac.jp/favicon.ico
-// @grant           none
-// @license         MIT
-// ==/UserScript==
+// @ts-ignore isolatedModules
+console.log('hello world');
+
+
 
 (function () {
   ('use strict');
