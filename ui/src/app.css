@@ -236,3 +236,37 @@ input[type='checkbox'] + label > .custom-checkbox > .unchecked {
 form {
   display: none;
 }
+
+td[bgcolor='#FFFFFF'] {
+  display: none;
+}
+
+table.style_table2 td.style_td {
+  padding: 0.25em;
+}
+
+table.style_table2 th[colspan='5'] {
+  padding: 0.5em 0;
+  font-size: large;
+  font-weight: bold;
+}
+
+div[align='center'] > br {
+  display: none;
+}
+
+div[align='center'] {
+  padding: 1em 0;
+}
+
+button#ok {
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  color: white;
+  border: none;
+  border-radius: 0.25em;
+  padding: 0.8em 0;
+  font-weight: bold;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
